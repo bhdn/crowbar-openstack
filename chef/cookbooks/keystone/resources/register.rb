@@ -41,6 +41,7 @@ attribute :endpoint_internalURL, kind_of: String
 attribute :endpoint_publicURL, kind_of: String
 attribute :endpoint_global, default: true
 attribute :endpoint_enabled, default: true
+attribute :replace_endpoints, default: true
 
 # :add_tenant specific attributes
 attribute :tenant_name, kind_of: String

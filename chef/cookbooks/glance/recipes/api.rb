@@ -141,6 +141,7 @@ keystone_register "register glance endpoint" do
   endpoint_publicURL "#{glance_protocol}://#{endpoint_public_ip}:#{api_port}"
   endpoint_adminURL "#{glance_protocol}://#{endpoint_admin_ip}:#{api_port}"
   endpoint_internalURL "#{glance_protocol}://#{endpoint_admin_ip}:#{api_port}"
+  replace_endpoints keystone_settings["replace_endpoints"]
 #  endpoint_global true
 #  endpoint_enabled true
   action :add_endpoint_template

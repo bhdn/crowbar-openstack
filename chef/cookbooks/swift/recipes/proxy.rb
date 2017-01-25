@@ -233,6 +233,7 @@ case proxy_config[:auth_method]
          endpoint_internalURL "#{swift_protocol}://#{admin_host}:"\
                               "#{node[:swift][:ports][:proxy]}/v1/"\
                               "#{node[:swift][:reseller_prefix]}$(project_id)s"
+         replace_endpoints keystone_settings["replace_endpoints"]
          #  endpoint_global true
          #  endpoint_enabled true
         action :add_endpoint_template

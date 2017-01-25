@@ -82,6 +82,7 @@ keystone_register "register barbican endpoint" do
   endpoint_publicURL "http://#{public_host}:#{barbican_port}"
   endpoint_adminURL "http://#{admin_host}:#{barbican_port}"
   endpoint_internalURL "http://#{admin_host}:#{barbican_port}"
+  replace_endpoints keystone_settings["replace_endpoints"]
   action :add_endpoint_template
 end
 

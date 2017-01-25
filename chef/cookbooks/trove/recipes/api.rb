@@ -126,6 +126,7 @@ keystone_register "register trove endpoint" do
                     "#{my_admin_host}:#{trove_port}/v1.0/$(project_id)s"
   endpoint_internalURL "#{trove_protocol}://"\
                        "#{my_admin_host}:#{trove_port}/v1.0/$(project_id)s"
+  replace_endpoints keystone_settings["replace_endpoints"]
   #  endpoint_global true
   #  endpoint_enabled true
   action :add_endpoint_template

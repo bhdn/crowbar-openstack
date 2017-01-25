@@ -16,6 +16,7 @@
                     "domain_specific_drivers": { "type": "bool", "required": true },
                     "domain_config_dir": { "type": "str", "required": true },
                     "token_expiration": { "type": "int", "required": true },
+                    "replace_endpoints": { "type": "bool", "required": true },
                     "db": { "type": "map", "required": true, "mapping": {
                       "database": { "type" : "str", "required" : true },
                       "user": { "type" : "str", "required" : true },

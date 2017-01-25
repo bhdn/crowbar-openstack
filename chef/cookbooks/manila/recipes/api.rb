@@ -96,6 +96,7 @@ keystone_register "register manila endpoint" do
                     "#{my_admin_host}:#{manila_port}/v1/$(project_id)s"
   endpoint_internalURL "#{manila_protocol}://"\
                        "#{my_admin_host}:#{manila_port}/v1/$(project_id)s"
+  replace_endpoints keystone_settings["replace_endpoints"]
   #  endpoint_global true
   #  endpoint_enabled true
   action :add_endpoint_template
@@ -128,6 +129,7 @@ keystone_register "register manila endpoint v2" do
                     "#{my_admin_host}:#{manila_port}/v2/$(project_id)s"
   endpoint_internalURL "#{manila_protocol}://"\
                        "#{my_admin_host}:#{manila_port}/v2/$(project_id)s"
+  replace_endpoints keystone_settings["replace_endpoints"]
   action :add_endpoint_template
 end
 

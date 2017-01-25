@@ -85,6 +85,7 @@ keystone_register "register neutron endpoint" do
   endpoint_publicURL "#{neutron_protocol}://#{my_public_host}:#{api_port}/"
   endpoint_adminURL "#{neutron_protocol}://#{my_admin_host}:#{api_port}/"
   endpoint_internalURL "#{neutron_protocol}://#{my_admin_host}:#{api_port}/"
+  replace_endpoints keystone_settings["replace_endpoints"]
 #  endpoint_global true
 #  endpoint_enabled true
   action :add_endpoint_template

@@ -76,6 +76,7 @@ module KeystoneHelper
         "use_ssl" => use_ssl,
         "endpoint_region" => node["keystone"]["api"]["region"],
         "insecure" => use_ssl && node[:keystone][:ssl][:insecure],
+        "replace_endpoints" => node[:keystone][:replace_endpoints],
         "protocol" => node["keystone"]["api"]["protocol"],
         "public_url_host" => public_host,
         "internal_url_host" => admin_host,

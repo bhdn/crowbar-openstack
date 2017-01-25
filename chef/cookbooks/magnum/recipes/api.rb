@@ -94,6 +94,7 @@ keystone_register "register magnum endpoint" do
                     "#{my_admin_host}:#{magnum_port}/v1"
   endpoint_internalURL "#{magnum_protocol}://"\
                        "#{my_admin_host}:#{magnum_port}/v1"
+  replace_endpoints keystone_settings["replace_endpoints"]
   action :add_endpoint_template
 end
 

@@ -90,6 +90,7 @@ keystone_register "register sahara endpoint" do
   endpoint_publicURL "#{sahara_protocol}://#{my_public_host}:#{sahara_port}/v1.1/%(tenant_id)s"
   endpoint_adminURL "#{sahara_protocol}://#{my_admin_host}:#{sahara_port}/v1.1/%(tenant_id)s"
   endpoint_internalURL "#{sahara_protocol}://#{my_admin_host}:#{sahara_port}/v1.1/%(tenant_id)s"
+  replace_endpoints keystone_settings["replace_endpoints"]
   action :add_endpoint_template
 end
 

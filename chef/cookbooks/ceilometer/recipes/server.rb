@@ -296,6 +296,7 @@ keystone_register "register ceilometer endpoint" do
   endpoint_publicURL "#{node[:ceilometer][:api][:protocol]}://#{my_public_host}:#{node[:ceilometer][:api][:port]}"
   endpoint_adminURL "#{node[:ceilometer][:api][:protocol]}://#{my_admin_host}:#{node[:ceilometer][:api][:port]}"
   endpoint_internalURL "#{node[:ceilometer][:api][:protocol]}://#{my_admin_host}:#{node[:ceilometer][:api][:port]}"
+  replace_endpoints keystone_settings["replace_endpoints"]
 #  endpoint_global true
 #  endpoint_enabled true
   action :add_endpoint_template
