@@ -245,9 +245,9 @@ keystone_register "update keystone endpoint" do
   auth register_auth_hash
   endpoint_service "keystone"
   endpoint_region node[:keystone][:api][:region]
-  endpoint_adminURL KeystoneHelper.admin_auth_url(node, my_admin_host)
+  endpoint_adminURL KeystoneHelper.admin_auth_url(node, node[:keystone][:api][:internal_URL_host])
   endpoint_publicURL KeystoneHelper.public_auth_url(node, my_public_host)
-  endpoint_internalURL KeystoneHelper.internal_auth_url(node, my_admin_host)
+  endpoint_internalURL KeystoneHelper.internal_auth_url(node, node[:keystone][:api][:internal_URL_host])
   action :update_endpoint
   # Do not try to update keystone endpoint during upgrade, when keystone is not running yet
   # ("done_os_upgrade" is present when first chef-client run is executed at the end of upgrade)
@@ -278,7 +278,8 @@ template node[:keystone][:config_file] do
       bind_service_port: bind_service_port,
       admin_endpoint: KeystoneHelper.service_URL(
         node[:keystone][:api][:protocol],
-        my_admin_host, node[:keystone][:api][:admin_port]
+        node[:keystone][:api][:internal_URL_host],
+        node[:keystone][:api][:admin_port]
       ),
       memcached_servers: memcached_servers,
       signing_token_format: node[:keystone][:signing][:token_format],
@@ -557,9 +558,9 @@ execute "keystone-manage bootstrap" do
   --bootstrap-role-name admin \
   --bootstrap-service-name keystone \
   --bootstrap-region-id #{node[:keystone][:api][:region]} \
-  --bootstrap-admin-url #{KeystoneHelper.admin_auth_url(node, my_admin_host)} \
+  --bootstrap-admin-url #{KeystoneHelper.admin_auth_url(node, node[:keystone][:api][:internal_URL_host])} \
   --bootstrap-public-url #{KeystoneHelper.public_auth_url(node, my_public_host)} \
-  --bootstrap-internal-url #{KeystoneHelper.internal_auth_url(node, my_admin_host)}"
+  --bootstrap-internal-url #{KeystoneHelper.internal_auth_url(node, node[:keystone][:api][:internal_URL_host])}"
   action :run
   only_if do
     !node[:keystone][:bootstrap] &&
@@ -581,7 +582,7 @@ unless updated_password.nil? ||
     keystone_register "update admin password" do
       protocol node[:keystone][:api][:protocol]
       insecure keystone_insecure
-      host my_admin_host
+      host node[:keystone][:api][:internal_URL_host]
       port node[:keystone][:api][:admin_port]
       auth register_auth_hash
       user_name node[:keystone][:admin][:username]
@@ -646,7 +647,7 @@ if node[:keystone][:domain_specific_drivers]
     keystone_register "add default #{domain} domain" do
       protocol node[:keystone][:api][:protocol]
       insecure keystone_insecure
-      host my_admin_host
+      host node[:keystone][:api][:internal_URL_host]
       port node[:keystone][:api][:admin_port]
       auth register_auth_hash
       domain_name domain
@@ -659,7 +660,7 @@ end
 keystone_register "add default admin role for domain default" do
   protocol node[:keystone][:api][:protocol]
   insecure keystone_insecure
-  host my_admin_host
+  host node[:keystone][:api][:internal_URL_host]
   port node[:keystone][:api][:admin_port]
   auth register_auth_hash
   user_name node[:keystone][:admin][:username]
